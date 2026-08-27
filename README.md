@@ -31,6 +31,8 @@ APIからストリームURLを取得して再生するフロントエンドク�
 
 ### 5. 取得するjsonデータの例
 https://yt-dlp-api-node.mangandenti.com/api/extract?url=https://www.youtube.com/watch?v=動画ID
+または、
+https://yt-dlp-api-node.mangandenti.com/api/extract?url=動画ID
 こいつを開くことで、下のjsonが出てくる
 {"type":"separated","is_shorts":false,"created_by":"満俺電池","video_url":"動画ストリーミングURL","audio_url":"音声ストリーミングURL"}
 
