@@ -35,3 +35,4 @@ https://yt-dlp-api-node.mangandenti.com/api/extract?url=https://www.youtube.com/
 {"type":"separated","is_shorts":false,"created_by":"満俺電池","video_url":"動画ストリーミングURL","audio_url":"音声ストリーミングURL"}
 
 ※初めて作ったから動くかは知らんで。
+※jsonの構成が急遽変更する場合があります
