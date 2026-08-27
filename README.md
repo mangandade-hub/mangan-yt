@@ -27,7 +27,7 @@ API（`https://yt-dlp-api-node.mangandenti.com`）からストリームURLを取
 3. ファイル追加（`+`）で HTML ファイルを作成し、名前を `index` にして、このリポジトリの `index.html` のコードを貼り付けます。
 4. 右上の **デプロイ** > **新しいデプロイ** から「Web アプリ」を選択して公開します。
 
-##取得するjsonデータ
+### 5. 取得するjsonデータ
 {"type":"separated","is_shorts":false,"created_by":"満俺電池","video_url":"動画ストリーミングURL","audio_url":"音声ストリーミングURL"}
 
 ※初めて作ったから動くかは知らんで。
