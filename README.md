@@ -7,10 +7,10 @@ API（`https://yt-dlp-api-node.mangandenti.com`）からストリームURLを取
 ボタンをクリックするだけで、自分のアカウントにこのプレイヤーを簡単に複製・公開できます。
 
 ### 1. Vercel にデプロイ
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/mangandade-hub/youtube-Streaming)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/mangandade-hub/mangan-yt)
 
 ### 2. Render にデプロイ
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mangandade-hub/youtube-Streaming)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mangandade-hub/mangan-yt)
 
 ---
 
@@ -26,3 +26,8 @@ API（`https://yt-dlp-api-node.mangandenti.com`）からストリームURLを取
 2. `Code.gs` の内容をこのリポジトリの `Code.gs` からコピペします。
 3. ファイル追加（`+`）で HTML ファイルを作成し、名前を `index` にして、このリポジトリの `index.html` のコードを貼り付けます。
 4. 右上の **デプロイ** > **新しいデプロイ** から「Web アプリ」を選択して公開します。
+
+##取得するjsonデータ
+{"type":"separated","is_shorts":false,"created_by":"満俺電池","video_url":"動画ストリーミングURL","audio_url":"音声ストリーミングURL"}
+
+※初めて作ったから動くかは知らんで。
