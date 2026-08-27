@@ -1,6 +1,7 @@
 # YouTube Stream Player Client
 
-API（`https://yt-dlp-api-node.mangandenti.com`）からストリームURLを取得して再生するフロントエンドクライアントです。
+APIからストリームURLを取得して再生するフロントエンドクライアントです。
+※DDoS攻撃はやめてね
 
 ## 🚀 ワンクリックデプロイ（おすすめ）
 
@@ -23,11 +24,12 @@ API（`https://yt-dlp-api-node.mangandenti.com`）からストリームURLを取
 
 ### 4. Google Apps Script (GAS)
 1. [Google Apps Script](https://script.google.com/) で新規プロジェクトを作成します。
-2. `Code.gs` の内容をこのリポジトリの `Code.gs` からコピペします。
-3. ファイル追加（`+`）で HTML ファイルを作成し、名前を `index` にして、このリポジトリの `index.html` のコードを貼り付けます。
-4. 右上の **デプロイ** > **新しいデプロイ** から「Web アプリ」を選択して公開します。
+2. このリポジトリの `Code.gs` をコピーします。
+3. コピーした内容を`コード.gs`に貼り付ける
+4. ファイル追加（`+`）で HTML ファイルを作成し、名前を `index` にして、このリポジトリの `index.html` のコードを貼り付けます。
+5. 右上の **デプロイ** > **新しいデプロイ** から「Web アプリ」を選択して公開します。
 
-### 5. 取得するjsonデータ
+### 5. 取得するjsonデータの例
 {"type":"separated","is_shorts":false,"created_by":"満俺電池","video_url":"動画ストリーミングURL","audio_url":"音声ストリーミングURL"}
 
 ※初めて作ったから動くかは知らんで。
