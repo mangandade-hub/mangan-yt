@@ -1,0 +1,17 @@
+{
+  "name": "mangandenti-relay-proxy",
+  "version": "1.0.0",
+  "description": "Relay proxy for yt-dlp API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "wrangler dev"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
