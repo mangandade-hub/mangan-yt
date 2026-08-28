@@ -96,7 +96,7 @@ export default {
   <h1>YouTube 動画抽出プレイヤー</h1>
 
   <div class="search-box">
-    <input type="text" id="ytInput" placeholder="YouTube URL または Video ID を入力">
+    <input type="text" id="ytInput" placeholder="YouTube URL または Video ID を入力 "value="https://www.youtube.com/watch?v=MFwtpM21wWc">
     <button onclick="loadAndPlay()">再生</button>
   </div>
 
