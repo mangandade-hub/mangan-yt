@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,8 +8,11 @@ const TARGET_API_ORIGIN = 'https://yt-dlp-api-node.mangandenti.com';
 
 app.use(cors({ origin: '*' }));
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.use(async (req, res) => {
-  // OPTIONS プリフライト対応 (CORS)
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -42,12 +46,10 @@ app.use(async (req, res) => {
     if (isTextOrScript) {
       let text = await fetchResponse.text();
 
-      // A. 自鯖Originの絶対パス置換
       text = text
         .replaceAll(TARGET_API_ORIGIN, proxyOrigin)
         .replaceAll(TARGET_API_ORIGIN.replace("https://", "http://"), proxyOrigin);
 
-      // B. テキスト/JS内の絶対パス URL (https://...) の走査・置換
       const urlRegex = /https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\:[0-9]+)?/g;
       text = text.replace(urlRegex, (match) => {
         try {
@@ -60,7 +62,6 @@ app.use(async (req, res) => {
         }
       });
 
-      // C. エスケープされた URL (https:\/\/...) の置換
       const escapedProxyOrigin = proxyOrigin.replaceAll("/", "\\/");
       text = text.replace(/https?:\\\/\\\/([^\\\/"]+)/g, (match, host) => {
         if (host.includes("mangandenti.com") || host === req.headers.host) {
@@ -72,7 +73,6 @@ app.use(async (req, res) => {
       return res.status(fetchResponse.status).send(text);
     }
 
-    // バイナリ転送
     const arrayBuffer = await fetchResponse.arrayBuffer();
     return res.status(fetchResponse.status).send(Buffer.from(arrayBuffer));
 
