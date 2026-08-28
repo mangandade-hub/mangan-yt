@@ -1,12 +1,27 @@
+const fs = require('fs');
+const path = require('path');
+
 const TARGET_API_ORIGIN = 'https://yt-dlp-api-node.mangandenti.com';
 
 module.exports = async (req, res) => {
-  // OPTIONS プリフライト対応 (CORS)
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', '*');
     return res.status(204).end();
+  }
+
+  const url = new URL(req.url, `http://${req.headers.host}`);
+
+  if (url.pathname === '/' || url.pathname === '/index.html') {
+    try {
+      const htmlPath = path.join(process.cwd(), 'index.html');
+      const htmlContent = fs.readFileSync(htmlPath, 'utf8');
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.status(200).send(htmlContent);
+    } catch (e) {
+      return res.status(500).send('Error loading index.html');
+    }
   }
 
   const protocol = req.headers['x-forwarded-proto'] || 'https';
@@ -35,12 +50,10 @@ module.exports = async (req, res) => {
     if (isTextOrScript) {
       let text = await fetchResponse.text();
 
-      // A. 自鯖Originの絶対パス置換
       text = text
         .replaceAll(TARGET_API_ORIGIN, proxyOrigin)
         .replaceAll(TARGET_API_ORIGIN.replace("https://", "http://"), proxyOrigin);
 
-      // B. テキスト/JS内の絶対パス URL (https://...) の走査・置換
       const urlRegex = /https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\:[0-9]+)?/g;
       text = text.replace(urlRegex, (match) => {
         try {
@@ -53,7 +66,6 @@ module.exports = async (req, res) => {
         }
       });
 
-      // C. エスケープされた URL (https:\/\/...) の置換
       const escapedProxyOrigin = proxyOrigin.replaceAll("/", "\\/");
       text = text.replace(/https?:\\\/\\\/([^\\\/"]+)/g, (match, host) => {
         if (host.includes("mangandenti.com") || host === req.headers.host) {
@@ -65,7 +77,6 @@ module.exports = async (req, res) => {
       return res.status(fetchResponse.status).send(text);
     }
 
-    // バイナリ転送
     const arrayBuffer = await fetchResponse.arrayBuffer();
     return res.status(fetchResponse.status).send(Buffer.from(arrayBuffer));
 
