@@ -29,7 +29,7 @@ APIからストリームURLを取得して再生するフロントエンドク�
 4. ファイル追加（`+`）で HTML ファイルを作成し、名前を `index` にして、このリポジトリの `index.html` のコードを貼り付けます。
 5. 右上の **デプロイ** > **新しいデプロイ** から「Web アプリ」を選択して公開します。
 
-### 5. 取得するjsonデータの例
+### 5. 取得するjsonデータの例 ※ドメインがブロックされている場合は、renderなどでリバースプロキシを作りましょう
 https://yt-dlp-api-node.mangandenti.com/api/extract?url=https://www.youtube.com/watch?v=動画ID
 または、
 https://yt-dlp-api-node.mangandenti.com/api/extract?url=動画ID
