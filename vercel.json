@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/extract",
+      "destination": "https://yt-dlp-api-node.mangandenti.com/api/extract"
+    }
+  ]
+}
