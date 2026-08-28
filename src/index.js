@@ -3,6 +3,7 @@ export default {
     const workerUrl = new URL(request.url);
     const TARGET_API_ORIGIN = "https://yt-dlp-api-node.mangandenti.com";
 
+    // 1. CORS プリフライト対応
     if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
@@ -14,6 +15,7 @@ export default {
       });
     }
 
+    // 2. ルートパス (/) へのアクセスの場合は HTML を返却
     if (workerUrl.pathname === "/" || workerUrl.pathname === "/index.html") {
       const htmlContent = `<!DOCTYPE html>
 <html lang="ja">
@@ -72,7 +74,7 @@ export default {
       if (/^[a-zA-Z0-9_-]{11}$/.test(str)) {
         return str;
       }
-      const match = str.match(/(?:v=|\/shorts\/|\/embed\/|\/v\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      const match = str.match(/(?:v=|\\/shorts\\/|\\/embed\\/|\\/v\\/|youtu\\.be\\/)([a-zA-Z0-9_-]{11})/);
       return match ? match[1] : str;
     }
 
@@ -81,12 +83,12 @@ export default {
       const videoId = parseVideoId(rawInput);
       if (!videoId) return;
 
-      statusText.innerText = `ストリームURLを抽出中...`;
+      statusText.innerText = \`ストリームURLを抽出中...\`;
       video.pause();
       audio.pause();
 
       try {
-        const res = await fetch(`${API_ENDPOINT}?url=${encodeURIComponent(videoId)}`);
+        const res = await fetch(\`\${API_ENDPOINT}?url=\${encodeURIComponent(videoId)}\`);
         const data = await res.json();
 
         if (!res.ok) {
@@ -94,7 +96,7 @@ export default {
         }
 
         if (data.author) {
-          creatorCredit.innerText = `Created by: ${data.author}`;
+          creatorCredit.innerText = \`Created by: \${data.author}\`;
           creatorCredit.style.display = 'block';
         }
 
@@ -114,7 +116,7 @@ export default {
         statusText.innerText = "読み込み完了！動画上の再生ボタンを押してください。";
 
       } catch (err) {
-        statusText.innerText = `エラー: ${err.message}`;
+        statusText.innerText = \`エラー: \${err.message}\`;
       }
     }
 
@@ -170,12 +172,14 @@ export default {
   </script>
 
 </body>
-</html>`
+</html>`;
+
       return new Response(htmlContent, {
         headers: { "Content-Type": "text/html; charset=utf-8" },
       });
     }
 
+    // 3. API 等のパス（/api/extract など）は自鯖 API へ転送
     const targetUrl = new URL(workerUrl.pathname + workerUrl.search, TARGET_API_ORIGIN).toString();
     const forwardHeaders = new Headers(request.headers);
     forwardHeaders.set("Host", new URL(TARGET_API_ORIGIN).hostname);
