@@ -39,5 +39,10 @@ https://yt-dlp-api-node.mangandenti.com/api/extract?url=動画ID
 こいつを開くことで、下のjsonが出てくる
 {"type":"separated","is_shorts":false,"created_by":"満俺電池","video_url":"動画ストリーミングURL","audio_url":"音声ストリーミングURL"}
 
+オプションで、/api/extract/search?q=アンパンマン
+とやると、
+{"video_id":"動画ID","title":"タイトル名","uploader":"チャンネル名","duration":122,"view_count":66271,"thumbnail":"サムネイルURL"}]}
+がコンマ区切りで、でてきます。
+
 ※初めて作ったから動くかは知らんで。
 ※jsonの構成が急遽変更する場合があります
